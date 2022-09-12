@@ -25,12 +25,9 @@ import java.util.HashMap;
  */
 public class Storage {
     private static final String FILE_PATH = "C:/Unu_Stuff/Y3S1/CS2103-CS2103T/Lab/Lab 2/src/data/duke.txt";
-    private Scanner myReader;
     private PrintWriter writer;
     public Storage() {
-        File myObj = new File(FILE_PATH);
         try {
-            this.myReader = new Scanner(myObj);
             this.writer = new PrintWriter(FILE_PATH);
         } catch (FileNotFoundException e) {
             System.out.println("Hi, u got error in storage file not exist");
@@ -44,35 +41,40 @@ public class Storage {
      * @param curr no of tasks in taskList
      * @return new Taskist with updated tasks
      */
-    public TaskList readDuke(List<Task> tasks, int curr) {
-        while (myReader.hasNextLine()) {
-            String userInput = myReader.nextLine();
-            String[] userInputArray = userInput.split(" \\| "); //special chara
-            Task task;
-            boolean done = userInputArray[1].equals("1");
-            switch (userInputArray[0]) {
-                case "T":
-                    task = new ToDo(userInputArray[2], done, "");
-                    curr += 1;
-                    System.out.println("here");
-                    tasks.add(curr, task);
-                    break;
-                case "E":
-                    task = new Event(userInputArray[2], done, dateReader(userInputArray[3]));
-                    curr += 1;
-                    tasks.add(curr, task);
-                    break;
-                case "D":
-                    task = new Deadline(userInputArray[2], done, dateReader(userInputArray[3]));
-                    curr += 1;
-                    System.out.println("here");
-                    tasks.add(curr, task);
-                    break;
-                case "":
-                    break; //edge case
+    public TaskList readDuke(List<Task> tasks, int curr) throws FileNotFoundException {
+        File myObj = new File(FILE_PATH);
+        try {
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String userInput = myReader.nextLine();
+                String[] userInputArray = userInput.split(" \\| "); //special chara
+                Task task;
+                boolean done = userInputArray[1].equals("1");
+                switch (userInputArray[0]) {
+                    case "T":
+                        task = new ToDo(userInputArray[2], done, "");
+                        curr += 1;
+                        tasks.add(curr, task);
+                        break;
+                    case "E":
+                        task = new Event(userInputArray[2], done, dateReader(userInputArray[3]));
+                        curr += 1;
+                        tasks.add(curr, task);
+                        break;
+                    case "D":
+                        task = new Deadline(userInputArray[2], done, dateReader(userInputArray[3]));
+                        curr += 1;
+                        tasks.add(curr, task);
+                        break;
+                    case "":
+                        break; //edge case
+                }
             }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+                throw new FileNotFoundException("Hi, u got error in storage file not exist");
+                //e.printStackTrace();
         }
-        myReader.close();
         writer.print("");
         return new TaskList(tasks, curr, "");
     }

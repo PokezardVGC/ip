@@ -34,8 +34,8 @@ public class Ui {
         return ("Throwing error in file");
     }
 
-    public void fileNotFoundPrint() {
-        System.out.println("File not found error");
+    public String fileNotFoundPrint() {
+        return ("File not found error");
     }
 
     public void generalErrorPrint() {

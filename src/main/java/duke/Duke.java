@@ -40,8 +40,12 @@ public class Duke {
         }
 
         //file reading
-        taskList = storage.readDuke(taskList.getTasks(), taskList.getCurr());
-
+        try {
+            taskList = storage.readDuke(taskList.getTasks(), taskList.getCurr());
+        } catch (Exception e) {
+            String fileNotFoundString = ui.fileNotFoundPrint();
+            System.out.println(fileNotFoundString);
+        }
         //main body
         String command = ui.readInput();
         while (!command.split(" ")[0].equals("bye")) {
