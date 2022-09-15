@@ -65,6 +65,13 @@ public class Parser {
                 } catch (Exception e) {
                     return new TaskList(taskList, ui.emptyEventPrint());
                 }
+            case "update time":
+                // ltr we nest this logic
+                try {
+                    return taskList.updateTime(command, ui);
+                } catch (Exception e) {
+                    return new TaskList(taskList, ui.emptyEventPrint());
+                }
 
             case "things":
                 return taskList.thingsTask(command);

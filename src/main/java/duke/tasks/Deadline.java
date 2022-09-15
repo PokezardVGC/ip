@@ -12,17 +12,17 @@ public class Deadline extends Task {
     private final LocalDateTime deadline;
 
     public Deadline(String input, String deadline) {
-        super(input, "");
+        super(input, "", "D");
         this.deadline = getTime(deadline);
     }
 
     public Deadline(String input, boolean done, String deadline) {
-        super(input, done, "");
+        super(input, done, "", "D");
         this.deadline = getTime(deadline);
     }
 
     public Deadline(String input, boolean done, LocalDateTime deadline) {
-        super(input, done, "");
+        super(input, done, "", "D");
         this.deadline = deadline;
     }
 

@@ -12,17 +12,17 @@ public class Event extends Task {
     private final LocalDateTime timing;
 
     public Event(String input, String timing) {
-        super(input, "");
+        super(input, "", "E");
         this.timing = getTime(timing);
     }
 
     public Event(String input, boolean done, String timing) {
-        super(input, done, "");
+        super(input, done, "", "E");
         this.timing = getTime(timing);
     }
 
     public Event(String input, boolean done, LocalDateTime timing) {
-        super(input, done, "");
+        super(input, done, "", "E");
         this.timing = timing;
     }
 

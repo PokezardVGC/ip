@@ -5,6 +5,7 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,7 +23,7 @@ public class TaskList {
     private final String toStage;
     public TaskList() {
         this.tasks = new ArrayList<>(); //should be list as compile time type
-        this.tasks.add(new Task("", ""));
+        this.tasks.add(new Task("", "", ""));
         this.curr = 0;
         this.toStage = "";
     }
@@ -191,6 +192,25 @@ public class TaskList {
             }
         }
         return new TaskList(this.tasks, this.curr, sb.toString());
+    }
+
+    public TaskList updateTime(String command, Ui ui) {
+        String event = command.substring(11);
+        System.out.println(event);
+        String[] atUpdateTime = event.split(" /to ");
+        int index = Integer.parseInt(atUpdateTime[0]) - 1;
+        String timing = atUpdateTime[1];
+        Task task = this.getTasks().get(index);
+        String taskType = task.getType();
+        switch (taskType) {
+            case "D":
+                task = new Deadline(task.getVal(), task.getDone(), timing);
+            case "E":
+                task = new Event(task.getVal(), task.getDone(), timing);
+        }
+        this.getTasks().set(index, task);
+        String output = ui.updatePrint(task);
+        return new TaskList(this.getTasks(), this.getCurr(), output);
     }
 
     public TaskList addCurr(String output) {
