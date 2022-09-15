@@ -28,6 +28,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3b344e79-5df9-422b-9756-bbe582de24bf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/duke/storage/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/storage/Storage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/duke/tasks/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/tasks/Deadline.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/duke/tasks/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/tasks/Event.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/duke/tasks/ToDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/duke/tasks/ToDo.java" afterDir="false" />
