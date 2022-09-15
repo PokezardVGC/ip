@@ -4,12 +4,6 @@ import duke.taskList.TaskList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
-import duke.tasks.Task;
 
 /**
  * a chatbot that should be able to keep track of tasks
@@ -43,8 +37,7 @@ public class Duke {
         try {
             taskList = storage.readDuke(taskList.getTasks(), taskList.getCurr());
         } catch (Exception e) {
-            String fileNotFoundString = ui.fileNotFoundPrint();
-            System.out.println(fileNotFoundString);
+            ui.fileNotFoundPrint();
         }
         //main body
         String command = ui.readInput();

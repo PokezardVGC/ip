@@ -18,7 +18,7 @@ class TaskListTest {
         try {
             List<Task> tasks = new ArrayList<Task>();
             Ui ui = new Ui();
-            Task dummy = new Task("", "");
+            Task dummy = new Task("", "", "");
             tasks.add(dummy);
             new TaskList(tasks, 1, "").listTasks(ui);
         } catch (Exception e) {
@@ -32,7 +32,7 @@ class TaskListTest {
         try {
             List<Task> tasks = new ArrayList<Task>();
             Ui ui = new Ui();
-            Task dummy = new Task("", "");
+            Task dummy = new Task("", "", "");
             tasks.add(dummy);
             String[] command = {"Mark", "1"};
             new TaskList(tasks, 1, "").markTask(command, ui);
@@ -47,7 +47,7 @@ class TaskListTest {
         try {
             List<Task> tasks = new ArrayList<Task>();
             Ui ui = new Ui();
-            Task dummy = new Task("", "");
+            Task dummy = new Task("", "", "");
             tasks.add(dummy);
             String[] command = {"Mark", "1"};
             new TaskList(tasks, 1, "").markTask(command, ui).unmarkTask(command, ui);
@@ -63,7 +63,7 @@ class TaskListTest {
         try {
             List<Task> tasks = new ArrayList<Task>();
             Ui ui = new Ui();
-            Task dummy = new Task("", "");
+            Task dummy = new Task("", "", "");
             tasks.add(dummy);
             tasks.add(dummy);
             String[] command = {"Delete", "2"};
