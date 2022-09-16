@@ -12,17 +12,17 @@ public class Event extends Task {
     private final LocalDateTime timing;
 
     public Event(String input, String timing) {
-        super(input, "");
+        super(input, "", "E");
         this.timing = getTime(timing);
     }
 
     public Event(String input, boolean done, String timing) {
-        super(input, done, "");
+        super(input, done, "", "E");
         this.timing = getTime(timing);
     }
 
     public Event(String input, boolean done, LocalDateTime timing) {
-        super(input, done, "");
+        super(input, done, "", "E");
         this.timing = timing;
     }
 
@@ -36,7 +36,8 @@ public class Event extends Task {
         int year = this.timing.getYear();
         int hour = this.timing.getHour();
         int min = this.timing.getMinute();
-        return(String.format("%s %s %s %02d:%02d", day, month, year, hour, min));
+        String format = "%s %s %s %02d:%02d";
+        return(String.format(format, day, month, year, hour, min));
     }
 
     /**
@@ -58,12 +59,14 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
+        String format;
         if(this.getDone()) {
-            return (String.format("[E][X] %s (%s)", this.getVal(), this.getTiming()));
+            format = "[E][X] %s (%s)";
         }
         else {
-            return String.format("[E][ ] %s (%s)", this.getVal(), this.getTiming());
+            format = "[E][ ] %s (%s)";
         }
+        return (String.format(format, this.getVal(), this.getTiming()));
     }
 
     /**
@@ -71,7 +74,9 @@ public class Event extends Task {
      */
     @Override
     public String toText() {
-        return String.format("E | %s | %s | %s", this.getDone() ? 1 : 0, this.getVal(), getTiming());
+        var isDone = this.getDone() ? 1 : 0;
+        String format = "E | %s | %s | %s";
+        return String.format(format, isDone, this.getVal(), getTiming());
     }
 
     private LocalDateTime getTime(String str) {
@@ -90,5 +95,13 @@ public class Event extends Task {
                 this.timing.getMonth().equals(date.getMonth()) &&
                 this.timing.getYear() == date.getYear());
 
+    }
+
+    /**
+     *
+     * @return timing variabe, DateTimeObject
+     */
+    public LocalDateTime getDateTimeObject() {
+        return this.timing;
     }
 }

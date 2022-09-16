@@ -12,17 +12,17 @@ public class Deadline extends Task {
     private final LocalDateTime deadline;
 
     public Deadline(String input, String deadline) {
-        super(input, "");
+        super(input, "", "D");
         this.deadline = getTime(deadline);
     }
 
     public Deadline(String input, boolean done, String deadline) {
-        super(input, done, "");
+        super(input, done, "", "D");
         this.deadline = getTime(deadline);
     }
 
     public Deadline(String input, boolean done, LocalDateTime deadline) {
-        super(input, done, "");
+        super(input, done, "", "D");
         this.deadline = deadline;
     }
 
@@ -50,7 +50,16 @@ public class Deadline extends Task {
         int year = this.deadline.getYear();
         int hour = this.deadline.getHour();
         int min = this.deadline.getMinute();
-        return(String.format("%s %s %s %02d:%02d", day, month, year, hour, min));
+        String format = "%s %s %s %02d:%02d";
+        return(String.format(format, day, month, year, hour, min));
+    }
+
+    /**
+     *
+     * @return deadline, was DateTimeObject
+     */
+    public LocalDateTime getDateTimeObject() {
+        return this.deadline;
     }
 
     /**
@@ -58,12 +67,14 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        String format;
         if(this.getDone()) {
-            return (String.format("[D][X] %s (%s)", this.getVal(), this.getTiming()));
+            format = "[D][X] %s (%s)";
         }
         else {
-            return (String.format("[D][ ] %s (%s)", this.getVal(), this.getTiming()));
+            format = "[D][ ] %s (%s)";
         }
+        return (String.format(format, this.getVal(), this.getTiming()));
     }
 
     /**
@@ -71,7 +82,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toText() {
-        return String.format("D | %s | %s | %s", this.getDone() ? 1 : 0, this.getVal(), this.getTiming());
+        var isDone = this.getDone() ? 1 : 0;
+        String format = "D | %s | %s | %s";
+        return String.format(format, isDone, this.getVal(), this.getTiming());
     }
     private LocalDateTime getTime(String str) {
         //from stackoverflow

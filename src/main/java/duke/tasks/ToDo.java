@@ -5,11 +5,11 @@ package duke.tasks;
  */
 public class ToDo extends Task {
     public ToDo(String input) {
-        super(input, "");
+        super(input, "", "T");
     }
 
     public ToDo(String input, boolean done, String dummy) {
-        super(input, done, "");
+        super(input, done, "", "T");
     }
 
     /**
@@ -31,12 +31,14 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
+        String format;
         if(this.getDone()) {
-            return String.format("[T][X] %s", this.getVal());
+            format = "[T][X] %s";
         }
         else {
-            return String.format("[T][ ] %s", this.getVal());
+            format = "[T][ ] %s";
         }
+        return String.format(format, this.getVal());
     }
 
     /**
@@ -44,6 +46,8 @@ public class ToDo extends Task {
      */
     @Override
     public String toText() {
-        return String.format("T | %s | %s", this.getDone() ? 1 : 0, this.getVal());
+        var isDone = this.getDone() ? 1 : 0;
+        String format = "T | %s | %s";
+        return String.format(format, isDone, this.getVal());
     }
 }
