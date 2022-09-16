@@ -12,11 +12,17 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
+/**
+ * reads file from duke.txt and
+ * writes to duke.txt once programme terminates
+ * has a Scanner object to read from duke.txt
+ * has a PrintWriter to write to duke.txt
+ */
 public class Storage {
     private static final String FILE_PATH = "C:/Unu_Stuff/Y3S1/CS2103-CS2103T/Lab/Lab 2/src/data/duke.txt";
     private Scanner myReader;
@@ -27,11 +33,19 @@ public class Storage {
             this.myReader = new Scanner(myObj);
             this.writer = new PrintWriter(FILE_PATH);
         } catch (FileNotFoundException e) {
-            System.out.println("Hi, u got error in storage file not exist");
+            final String errorMessage = "Hi, u got error in storage file not exist";
+            System.out.println(errorMessage);
             e.printStackTrace();
         }
+
     }
 
+    /**
+     * Reads the files from duke.txt and stores them in TaskList
+     * @param tasks tasks Arraylist from TaskList
+     * @param curr no of tasks in taskList
+     * @return new Taskist with updated tasks
+     */
     public TaskList readDuke(List<Task> tasks, int curr) {
         while (myReader.hasNextLine()) {
             String userInput = myReader.nextLine();
@@ -41,15 +55,20 @@ public class Storage {
             switch (userInputArray[0]) {
                 case "T":
                     task = new ToDo(userInputArray[2], done, "");
-                    tasks.add(curr++, task);
+                    curr += 1;
+                    System.out.println("here");
+                    tasks.add(curr, task);
                     break;
                 case "E":
                     task = new Event(userInputArray[2], done, dateReader(userInputArray[3]));
-                    tasks.add(curr++, task);
+                    curr += 1;
+                    tasks.add(curr, task);
                     break;
                 case "D":
                     task = new Deadline(userInputArray[2], done, dateReader(userInputArray[3]));
-                    tasks.add(curr++, task);
+                    curr += 1;
+                    System.out.println("here");
+                    tasks.add(curr, task);
                     break;
                 case "":
                     break; //edge case
@@ -57,9 +76,14 @@ public class Storage {
         }
         myReader.close();
         writer.print("");
-        return new TaskList(tasks, curr);
+        return new TaskList(tasks, curr, "");
     }
 
+    /**
+     *
+     * @param tasks takes in arrayList of TaskList, list of tasks
+     * @param curr the no of tasks in TaskList
+     */
     public void writerToDuke(List<Task> tasks, int curr) {
         for (int i = 0; i < curr; i++) {
             writer.println(tasks.get(i).toText());
@@ -89,15 +113,20 @@ public class Storage {
         return String.format("%s/%s/%s %s", arr[0], arr[1], arr[2], arr[3]);
     }
 
-    public static void createFiles() throws IOException {
+    /**
+     * creats the necessary files if it is not found
+     * @throws IOException unable to create new File in directory
+     */
+    public static String createFiles() throws IOException {
         String[] arr = FILE_PATH.split("/");
+        StringBuilder sb = new StringBuilder();
         java.nio.file.Path path = java.nio.file.Paths.get("");
         for (int i = 0; i < arr.length - 1; i++) {
             path = java.nio.file.Paths.get(String.valueOf(path),arr[i]);
             boolean directoryExists = java.nio.file.Files.exists(path);
             if(!directoryExists) {
                 new File(String.valueOf(path)).mkdirs();
-                System.out.println("hi, made new directory");
+                sb.append("hi, made new directory");
             }
         }
         java.nio.file.Path filePath = java.nio.file.Paths.get(FILE_PATH);
@@ -105,5 +134,6 @@ public class Storage {
         if(!directoryExists) {
             filePath.toFile().createNewFile();
         }
+        return sb.toString();
     }
 }
